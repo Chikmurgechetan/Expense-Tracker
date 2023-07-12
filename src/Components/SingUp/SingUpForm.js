@@ -1,82 +1,129 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./SingUpFrom.module.css";
+import { AppContext } from "../Context/Autho-Context";
+import { useNavigate } from "react-router-dom";
 
-const Singup = (singData)=>{
-      fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q",
-     {
-        method:'POST',
-        body : JSON.stringify(singData),
-        headers:{
-            'Content-Type':'application/json'
-        }
-     }).then((response)=>{
-        console.log(response);
-     }).catch((error)=>{
-        console.log(error);
-     })
-
-}
 
 
 const SingUpForm = () => {
-   const [email,setEmail] = useState("");
-   const [password,setPassword] = useState("");
-   const [conformPassword,setconformPassword] = useState("");
+  const navigat =useNavigate();
+  const ctx = useContext(AppContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [conformPassword, setConformPassword] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
 
-    const SubmitHandelr = (event) =>{
-    event.preventDefault()
-    console.log(email,password,conformPassword);
+  const switchHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
 
-    if (password === conformPassword){
-        Singup({  email: email,
-                password: password,
-                 returnSecureToken: true})
-
-        setEmail('');
-        setPassword('');
-        setconformPassword('')
-    }else{
-        alert('password mismatch')
-    };
-    console.log(' User has successfully signed up')
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    console.log(email, password, conformPassword);
+    if (!isLogin && password !== conformPassword) {
+      alert("Confirmation password does not match");
+      return;
     }
 
-    const changeEmail = (event) =>{
-        setEmail(event.target.value);
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q";
+
+    if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q";
     }
-    const changePasswword = (event) =>{
-        setPassword(event.target.value);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.error) {
+        alert(data.error.message);
+      } else {
+        if (isLogin) {
+          ctx.setIsLoggedIn(true);
+          ctx.setidToken(data.idToken);
+          navigat('/home');
+        }
+        setIsLogin(true);
+      }
+
+      console.log(data);
+    } catch (error) {
+      console.error(error);
     }
-    const changeConformPassword = (event) =>{
-        setconformPassword(event.target.value);
-    }
+  };
+
+  const changeEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const changePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const changeConformPassword = (event) => {
+    setConformPassword(event.target.value);
+  };
 
   return (
     <>
       <div className={classes["signup-container"]}>
-        <h2>SingUp</h2>
-        <form onSubmit={SubmitHandelr}>
-          <label >
+        <h2>{isLogin ? "Login" : "Sign Up"}</h2>
+        <form onSubmit={submitHandler}>
+          <label>
             Email:
-            <input type="email"  value={email} onChange={changeEmail} required />
+            <input
+              type="email"
+              value={email}
+              onChange={changeEmail}
+              placeholder="Email"
+              required
+            />
           </label>
 
-          <label >
+          <label>
             Password:
-            <input type="password" value={password} onChange={changePasswword} required />
+            <input
+              type="password"
+              value={password}
+              onChange={changePassword}
+              placeholder="Password"
+              required
+            />
           </label>
-          <label >
-            Conform Password:
-            <input type="password" value={conformPassword} onChange={changeConformPassword} required />
-          </label>
-          <button type="sunmit">Sing Up</button>
+          {!isLogin && (
+            <label>
+              Confirm Password:
+              <input
+                type="password"
+                value={conformPassword}
+                onChange={changeConformPassword}
+                placeholder="Confirm Password"
+                required
+              />
+            </label>
+          )}
+          <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
         </form>
-        <div>
-          <p>
-            Have an account?
-            <button>Login</button>
-          </p>
-        </div>
+
+        <a href="/forgot-password" className={classes.link}>
+          Forgot Password
+        </a>
+
+        <button onClick={switchHandler}>
+          {isLogin ? "Don't Have an Account? Sign Up" : "Login"}
+        </button>
       </div>
     </>
   );
