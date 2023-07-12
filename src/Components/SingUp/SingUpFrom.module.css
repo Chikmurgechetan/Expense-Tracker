@@ -1,0 +1,51 @@
+.signup-container {
+
+    width: 300px;
+    margin-left: 40%;
+    margin-top: 6rem;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: aliceblue;
+    box-shadow: 1px 2px 1px 2px blanchedalmonds;
+  }
+
+  h2 {
+    text-align: center;
+    
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 10px;
+  }
+  
+  form input{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6369c8;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #6045a0;
+  }
+  
+  p {
+    text-align: center;
+  }
+ 
