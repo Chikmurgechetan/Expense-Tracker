@@ -1,0 +1,32 @@
+.profile{
+     display: flex;
+     justify-content: space-between;
+     border-bottom: 1px solid black;
+}
+.Profilebutton{
+    color: blue;
+    border: none;
+    text-decoration: underline blue;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: rgb(202, 218, 223);
+    cursor: pointer;
+}
+.Profilebutton:hover{
+    color:red;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: rgb(188, 188, 216);
+}
+.complet{
+    border: 1px solid black;
+    margin-right: 1rem;
+    padding: auto;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    padding: 0px 5px;
+    background-color: rgb(202, 218, 223);
+
+    
+}

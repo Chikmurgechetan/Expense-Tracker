@@ -80,10 +80,11 @@ const SingUpForm = () => {
     <>
       <div className={classes["signup-container"]}>
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
-        <form onSubmit={submitHandler}>
-          <label>
+        <form onSubmit={submitHandler} className={classes.singForm}>
+          <label  className={classes.inputlabel}>
             Email:
             <input
+            className={classes.forminput}
               type="email"
               value={email}
               onChange={changeEmail}
@@ -92,9 +93,10 @@ const SingUpForm = () => {
             />
           </label>
 
-          <label>
+          <label className={classes.inputlabel}  >
             Password:
             <input
+            className={classes.forminput}
               type="password"
               value={password}
               onChange={changePassword}
@@ -103,9 +105,10 @@ const SingUpForm = () => {
             />
           </label>
           {!isLogin && (
-            <label>
+            <label className={classes.inputlabel}>
               Confirm Password:
               <input
+               className={classes.forminput}
                 type="password"
                 value={conformPassword}
                 onChange={changeConformPassword}
@@ -114,14 +117,14 @@ const SingUpForm = () => {
               />
             </label>
           )}
-          <button type="submit">{isLogin ? "Login" : "Sign Up"}</button>
+          <button type="submit" className={classes.singbutton}>{isLogin ? "Login" : "Sign Up"}</button>
         </form>
 
         <a href="/forgot-password" className={classes.link}>
           Forgot Password
         </a>
 
-        <button onClick={switchHandler}>
+        <button onClick={switchHandler} className={classes.singbutton}>
           {isLogin ? "Don't Have an Account? Sign Up" : "Login"}
         </button>
       </div>

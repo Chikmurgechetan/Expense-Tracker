@@ -1,0 +1,41 @@
+
+.Contect{
+  margin-left: 15rem;
+  margin-top: 5rem;
+  border-bottom: 1px solid black;
+  padding-bottom: 2rem;
+  }
+.h2{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.cancle{
+    margin-right: 4rem;
+    cursor: pointer;
+}
+.labels{
+  margin-left: 1rem;
+  font: weight 6px;;
+
+}
+.nameinput{
+  width: 14rem;
+  margin-left: 1rem;
+  margin-top: 2rem;
+}
+
+.updatebtn{
+    color: wheat;
+    cursor: pointer;
+    display: block;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    padding: 2px 5px;
+    background-color: brown;
+    font-weight: bold;
+}
+.updatebtn:hover{
+  background-color: red;
+}
+  

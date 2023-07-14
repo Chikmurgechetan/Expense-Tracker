@@ -15,16 +15,17 @@ h2 {
 
 }
 
-form {
+.singForm {
   display: flex;
   flex-direction: column;
 }
 
-label {
+ .inputlabel {
   margin-bottom: 10px;
+ 
 }
 
-form input {
+.forminput {
   color: white;
   width: 100%;
   padding: 5px;
@@ -33,7 +34,7 @@ form input {
   background-color: #111010;
 }
 
-button {
+.singbutton {
   width: 100%;
   padding: 10px;
   background-color: #6369c8;
@@ -41,15 +42,15 @@ button {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  margin-top: 5px;
 }
 
-button:hover {
+.singbutton:hover {
   background-color: #6045a0;
 }
 
 .link {
-
-  text-align: center;
+ text-align: center;
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
