@@ -3,10 +3,8 @@ import classes from "./SingUpFrom.module.css";
 import { AppContext } from "../Context/Autho-Context";
 import { useNavigate } from "react-router-dom";
 
-
-
 const SingUpForm = () => {
-  const navigat =useNavigate();
+  const navigat = useNavigate();
   const ctx = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +51,8 @@ const SingUpForm = () => {
         if (isLogin) {
           ctx.setIsLoggedIn(true);
           ctx.setidToken(data.idToken);
-          navigat('/home');
+          navigat("/home");
+          localStorage.setItem('idToken',data.idToken);
         }
         setIsLogin(true);
       }
@@ -81,10 +80,10 @@ const SingUpForm = () => {
       <div className={classes["signup-container"]}>
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
         <form onSubmit={submitHandler} className={classes.singForm}>
-          <label  className={classes.inputlabel}>
+          <label className={classes.inputlabel}>
             Email:
             <input
-            className={classes.forminput}
+              className={classes.forminput}
               type="email"
               value={email}
               onChange={changeEmail}
@@ -93,10 +92,10 @@ const SingUpForm = () => {
             />
           </label>
 
-          <label className={classes.inputlabel}  >
+          <label className={classes.inputlabel}>
             Password:
             <input
-            className={classes.forminput}
+              className={classes.forminput}
               type="password"
               value={password}
               onChange={changePassword}
@@ -108,7 +107,7 @@ const SingUpForm = () => {
             <label className={classes.inputlabel}>
               Confirm Password:
               <input
-               className={classes.forminput}
+                className={classes.forminput}
                 type="password"
                 value={conformPassword}
                 onChange={changeConformPassword}
@@ -117,7 +116,9 @@ const SingUpForm = () => {
               />
             </label>
           )}
-          <button type="submit" className={classes.singbutton}>{isLogin ? "Login" : "Sign Up"}</button>
+          <button type="submit" className={classes.singbutton}>
+            {isLogin ? "Login" : "Sign Up"}
+          </button>
         </form>
 
         <a href="/forgot-password" className={classes.link}>

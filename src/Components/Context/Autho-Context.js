@@ -5,17 +5,24 @@ export const AppContext = React.createContext({
   isLoggedIn: false,
   setidToken: () => {},
   setIsLoggedIn: () => {},
+ 
 });
 
+
 const ContextProvider = (props) => {
+  const useridToken = localStorage.getItem('idToken')? localStorage.getItem('idToken'):'';
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [idToken, setidToken] = useState("");
+  const [idToken, setidToken] = useState(useridToken);
+ 
+   
 
   const ctxObj = {
     idToken: idToken,
     isLoggedIn: isLoggedIn,
     setidToken: setidToken,
     setIsLoggedIn: setIsLoggedIn,
+  
   };
 
   return (
