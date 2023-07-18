@@ -1,9 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import classes from "./ContectDetails.module.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LanguageIcon from "@mui/icons-material/Language";
 import { AppContext } from "../Context/Autho-Context";
-
+import EmailIcon from "@mui/icons-material/Email";
+import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 
 const fetchProfile = async (
   ctx,
@@ -52,13 +53,7 @@ const ContectDetails = () => {
   );
 
   useEffect(() => {
-    fetchProfile(
-      ctx,
-      setShowname,
-      setShowImage,
-      ctx.setEmail,
-      ctx.setVerifyEmail
-    );
+    fetchProfile(ctx, setShowname, setShowImage, ctx.setEmail, ctx.setVerifyEmail);
   }, [ctx]);
 
   const submitHandler = async (event) => {
@@ -95,6 +90,30 @@ const ContectDetails = () => {
     }
   };
 
+  async function verifyEmail() {
+    const firebaseApiUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q';
+
+    const requestData = {
+      idToken: ctx.idToken,
+      requestType: 'VERIFY_EMAIL',
+    };
+
+    try {
+      const response = await fetch(firebaseApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      const data = await response.json();
+      console.log(data); // contains the response data
+    } catch (error) {
+      console.error(error); // handle error
+    }
+  }
+
   const changeName = (event) => {
     setName(event.target.value);
   };
@@ -112,6 +131,20 @@ const ContectDetails = () => {
         <p>{showName}</p>
         <img src={showImage} alt="profileimage" width="100px" height="60px" />
         <p className="profile-email">{ctx.email}</p>
+
+        {ctx.verifyEmail ? (
+          <p>
+            Email verified
+            <MarkEmailReadIcon />
+          </p>
+        ) : (
+          <button
+            className={classes.buttonVerify}
+            onClick={() => verifyEmail(ctx.idToken)}
+          >
+            Verify Email Id <EmailIcon />
+          </button>
+        )}
 
         <form className={classes.forms} onSubmit={submitHandler}>
           <label className={classes.labels}>
