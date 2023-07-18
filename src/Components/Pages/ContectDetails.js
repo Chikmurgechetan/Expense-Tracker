@@ -1,10 +1,11 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import classes from "./ContectDetails.module.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LanguageIcon from "@mui/icons-material/Language";
 import { AppContext } from "../Context/Autho-Context";
 import EmailIcon from "@mui/icons-material/Email";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import { useNavigate } from "react-router-dom";
 
 const fetchProfile = async (
   ctx,
@@ -43,6 +44,7 @@ const fetchProfile = async (
 };
 
 const ContectDetails = () => {
+  const navigat = useNavigate();
   const ctx = useContext(AppContext);
   const [name, setName] = useState("");
   const [profileUrl, setProfileUrl] = useState("");
@@ -53,7 +55,13 @@ const ContectDetails = () => {
   );
 
   useEffect(() => {
-    fetchProfile(ctx, setShowname, setShowImage, ctx.setEmail, ctx.setVerifyEmail);
+    fetchProfile(
+      ctx,
+      setShowname,
+      setShowImage,
+      ctx.setEmail,
+      ctx.setVerifyEmail
+    );
   }, [ctx]);
 
   const submitHandler = async (event) => {
@@ -91,11 +99,12 @@ const ContectDetails = () => {
   };
 
   async function verifyEmail() {
-    const firebaseApiUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q';
+    const firebaseApiUrl =
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q";
 
     const requestData = {
       idToken: ctx.idToken,
-      requestType: 'VERIFY_EMAIL',
+      requestType: "VERIFY_EMAIL",
     };
 
     try {
@@ -114,6 +123,10 @@ const ContectDetails = () => {
     }
   }
 
+  const cancelHandler = () => {
+    navigat("/home");
+  };
+
   const changeName = (event) => {
     setName(event.target.value);
   };
@@ -126,7 +139,9 @@ const ContectDetails = () => {
       <div className={classes.Contect}>
         <h2 className={classes.h2}>
           Contact Details
-          <button className={classes.cancle}>Cancel</button>
+          <button className={classes.cancle} onClick={cancelHandler}>
+            Cancel
+          </button>
         </h2>
         <p>{showName}</p>
         <img src={showImage} alt="profileimage" width="100px" height="60px" />
