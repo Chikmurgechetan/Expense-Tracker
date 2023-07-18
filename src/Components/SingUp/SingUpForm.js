@@ -125,7 +125,7 @@ const SingUpForm = () => {
         </form>
 
         {isLogin && (
-          <a href="/forgot-password" className={classes.link}>
+          <a href="/Forgot-Password" className={classes.link}>
             Forgot Password
           </a>
         )}
