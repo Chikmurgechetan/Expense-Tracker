@@ -14,7 +14,11 @@ h2 {
   text-align: center;
 
 }
-
+h1{
+ text-align: center;
+ justify-content: center;
+ margin-left: 4rem;
+}
 .singForm {
   display: flex;
   flex-direction: column;
@@ -56,4 +60,16 @@ h2 {
   margin-bottom: 10px;
   color: blue;
   text-decoration: underline;
+}
+.singupButton{
+border: none;
+width: 100%;
+padding: 10px;
+
+color:black;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+margin-top: 5px;
+
 }

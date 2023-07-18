@@ -1,8 +1,45 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import classes from "./ContectDetails.module.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LanguageIcon from "@mui/icons-material/Language";
 import { AppContext } from "../Context/Autho-Context";
+
+
+const fetchProfile = async (
+  ctx,
+  setShowname,
+  setShowImage,
+  setEmail,
+  setVerifyEmail
+) => {
+  try {
+    const response = await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q",
+      {
+        method: "POST",
+        body: JSON.stringify({ idToken: ctx.idToken }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      setShowname(data.users[0].displayName);
+      setShowImage(data.users[0].photoUrl);
+      setEmail(data.users[0].email);
+      setVerifyEmail(data.users[0].emailVerified);
+
+      console.log(data.users[0].emailVerified);
+      console.log(data);
+    } else {
+      throw new Error("Failed to fetch profile");
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
 
 const ContectDetails = () => {
   const ctx = useContext(AppContext);
@@ -13,39 +50,16 @@ const ContectDetails = () => {
   const [showImage, setShowImage] = useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKo76YVrnnPieB27rFfO4k43aaWCgI0o4Dr3WC8TNVvU4wDS-s7c1vcXk6CpO5S9zOtuA&usqp=CAU"
   );
- 
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q",
-          {
-            method: "POST",
-            body: JSON.stringify({ idToken: ctx.idToken}),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          setShowname(data.users[0].displayName);
-          setShowImage(data.users[0].photoUrl);
-          console.log(data);
-        } else {
-          throw new Error("Failed to fetch profile");
-        }
-      } catch (error) {
-        alert(error);
-      }
-    };
-
-    fetchProfile();
+    fetchProfile(
+      ctx,
+      setShowname,
+      setShowImage,
+      ctx.setEmail,
+      ctx.setVerifyEmail
+    );
   }, [ctx]);
-  
-
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -73,7 +87,6 @@ const ContectDetails = () => {
       if (response.ok) {
         alert("Profile Updated");
         console.log(response);
-       
       } else {
         throw new Error("Failed to update profile");
       }
@@ -81,8 +94,7 @@ const ContectDetails = () => {
       alert(error);
     }
   };
- 
-   
+
   const changeName = (event) => {
     setName(event.target.value);
   };
@@ -99,6 +111,7 @@ const ContectDetails = () => {
         </h2>
         <p>{showName}</p>
         <img src={showImage} alt="profileimage" width="100px" height="60px" />
+        <p className="profile-email">{ctx.email}</p>
 
         <form className={classes.forms} onSubmit={submitHandler}>
           <label className={classes.labels}>

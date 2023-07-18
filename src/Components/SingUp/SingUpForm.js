@@ -3,6 +3,7 @@ import classes from "./SingUpFrom.module.css";
 import { AppContext } from "../Context/Autho-Context";
 import { useNavigate } from "react-router-dom";
 
+
 const SingUpForm = () => {
   const navigat = useNavigate();
   const ctx = useContext(AppContext);
@@ -51,8 +52,9 @@ const SingUpForm = () => {
         if (isLogin) {
           ctx.setIsLoggedIn(true);
           ctx.setidToken(data.idToken);
+          ctx.setEmail(data.email);
           navigat("/home");
-          localStorage.setItem('idToken',data.idToken);
+          localStorage.setItem("idToken", data.idToken);
         }
         setIsLogin(true);
       }
@@ -77,6 +79,7 @@ const SingUpForm = () => {
 
   return (
     <>
+      <h1>Wellcome to Expense Tracker </h1>
       <div className={classes["signup-container"]}>
         <h2>{isLogin ? "Login" : "Sign Up"}</h2>
         <form onSubmit={submitHandler} className={classes.singForm}>
@@ -121,13 +124,16 @@ const SingUpForm = () => {
           </button>
         </form>
 
-        <a href="/forgot-password" className={classes.link}>
-          Forgot Password
-        </a>
+        {isLogin && (
+          <a href="/forgot-password" className={classes.link}>
+            Forgot Password
+          </a>
+        )}
 
-        <button onClick={switchHandler} className={classes.singbutton}>
+        <button onClick={switchHandler} className={classes.singupButton}>
           {isLogin ? "Don't Have an Account? Sign Up" : "Login"}
         </button>
+      
       </div>
     </>
   );
