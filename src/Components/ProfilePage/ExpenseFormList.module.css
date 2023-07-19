@@ -1,0 +1,11 @@
+.maneList{
+    text-align: center;
+    list-style-type: none;
+    
+    margin: 2rem 30rem;
+    padding: 5px ;
+}
+.list{
+  border-bottom: 2px solid black ;
+  margin-top: 10px;
+}
