@@ -6,6 +6,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(69, 62, 62);
+
+  background-color: #f2f2f2; 
+  background-image: url('C:\Users\chikm\expense-tracker\src\Image\background image.avif'); 
+  background-position: center center;
+  background-size: cover; 
+  
 }
 
 code {

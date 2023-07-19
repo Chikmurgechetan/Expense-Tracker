@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import classes from "./SingUpFrom.module.css";
-import { AppContext } from "../Context/Autho-Context";
+import { AppContext } from "../../Context/Autho-Context";
 import { useNavigate } from "react-router-dom";
 
 

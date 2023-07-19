@@ -1,45 +1,54 @@
-.profile {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid black;
-}
-
-.Profilebutton {
-    color: blue;
-    border: none;
-    text-decoration: underline blue;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: rgb(202, 218, 223);
-    cursor: pointer;
-}
-
-.Profilebutton:hover {
-    color: red;
-    border: none;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: rgb(188, 188, 216);
-}
-
-.complet {
-    border: 1px solid black;
-    margin-right: 1rem;
-    padding: auto;
-    border-radius: 20px;
-    margin-bottom: 1rem;
-    padding: 0px 5px;
-    background-color: rgb(202, 218, 223);
 
 
-}
 .lbutton {
     float: right;
     margin-right: 2rem;
     margin-top: 2rem;
-    padding: 0.4rem 0.7rem;
-    color: red;
+    padding: 0.4rem 1rem;
+    color: #fff;
     font-weight: bold;
-    background: black;
+    background-color: #000;
+    border: none;
     cursor: pointer;
-}
+    border-radius: 12px;
+  }
+  .lbutton:hover{
+    background-color: rgb(80, 120, 120);
+    color: red;
+  }
+  
+  .profile {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .complet {
+    border: 1px solid #000;
+    border-radius: 20px;
+    margin-right: 1rem;
+    padding: 0.3rem;
+    background-color: #cadadd;
+  }
+  
+  .Profilebutton {
+    color: blue;
+    border: none;
+    text-decoration: underline;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #cadadd;
+    cursor: pointer;
+  }
+  
+  .Profilebutton:hover {
+    color: red;
+    background-color: #bcbcdc;
+  }
+  h3{
+    margin-left: 1rem;
+    text-transform: capitalize;
+  }

@@ -138,7 +138,7 @@ const ContectDetails = () => {
     <>
       <div className={classes.Contect}>
         <h2 className={classes.h2}>
-          Contact Details
+          Update Details
           <button className={classes.cancle} onClick={cancelHandler}>
             Cancel
           </button>
@@ -150,6 +150,7 @@ const ContectDetails = () => {
         {ctx.verifyEmail ? (
           <p>
             Email verified
+            
             <MarkEmailReadIcon />
           </p>
         ) : (

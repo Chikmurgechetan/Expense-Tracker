@@ -3,26 +3,27 @@ import classes from "./ProfilePage.module.css";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../Context/Autho-Context";
 const ProfilePage = () => {
-
-   const ctx = useContext(AppContext); 
+  const ctx = useContext(AppContext);
   const navigat = useNavigate();
   const ButtonHandler = () => {
     navigat("/contect");
   };
-  
-  const logoutHandler = () =>{
+
+  const logoutHandler = () => {
     ctx.setIsLoggedIn(false);
-    localStorage.setItem('idToken' , '');
+    localStorage.removeItem("idToken", "");
     ctx.setidToken(null);
-    navigat('/');
-    console.log('logign out')
-  }
+    navigat("/");
+    console.log("logign out");
+  };
 
   return (
     <>
-      <button className={classes.lbutton} onClick={logoutHandler}>Logout</button>
+      <button className={classes.lbutton} onClick={logoutHandler}>
+        Logout
+      </button>
       <div className={classes.profile}>
-        <h3>Well Come to Expense Tracker</h3>
+        <h3>WellCome to Expense Tracker</h3>
 
         <div className={classes.complet}>
           <h3>

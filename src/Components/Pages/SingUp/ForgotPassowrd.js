@@ -3,9 +3,8 @@ import classes from "./ForgotPassword.module.css";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
-   const navigat = useNavigate(); 
+  const navigat = useNavigate();
   const [email, setEmail] = useState("");
-
 
   const resetSubmitHander = async (event) => {
     event.preventDefault();
@@ -26,11 +25,8 @@ const ForgotPassword = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        alert(
-          "A Pssworde reset link Is send your Email"
-        );
-        navigat('/')
-
+        alert("A Pssworde reset link Is send your Email");
+        navigat("/");
       } else {
         throw new Error("Send password reset email failed");
       }

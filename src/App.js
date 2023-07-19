@@ -1,23 +1,22 @@
 import React from "react";
-import SingUpForm from "./Components/SingUp/SingUpForm";
+import SingUpForm from "./Components/Pages/SingUp/SingUpForm";
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes,Navigate } from "react-router-dom";
 import ProfilePage from "./Components/Pages/ProfilePage";
 import ContectDetails from "./Components/Pages/ContectDetails";
-import { useContext } from "react";
-import { AppContext } from "./Components/Context/Autho-Context";
+
 import ForgotPassword from "./Components/SingUp/ForgotPassowrd";
 
 function App() {
-  const ctx = useContext(AppContext);
+ 
   return (
     <>
       <Routes>
         <Route path="/" element={<SingUpForm />} />
-        <Route path="/Forgot-Password" element={<ForgotPassword/>}/>
-      {ctx.isLoggedIn && <Route path="/home" element={<ProfilePage />} /> }  
-      {ctx.isLoggedIn &&  <Route path="/contect"element={<ContectDetails/>} /> } 
-
+        <Route path="/Forgot-Password" element={<ForgotPassword />} />
+        <Route path="/home" element={<ProfilePage />} />
+        <Route path="/contect" element={<ContectDetails />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );
