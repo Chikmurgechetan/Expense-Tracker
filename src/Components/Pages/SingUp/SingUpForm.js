@@ -3,7 +3,6 @@ import classes from "./SingUpFrom.module.css";
 import { AppContext } from "../../Context/Autho-Context";
 import { useNavigate } from "react-router-dom";
 
-
 const SingUpForm = () => {
   const navigat = useNavigate();
   const ctx = useContext(AppContext);
@@ -18,7 +17,9 @@ const SingUpForm = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+
     console.log(email, password, conformPassword);
+
     if (!isLogin && password !== conformPassword) {
       alert("Confirmation password does not match");
       return;
@@ -50,11 +51,12 @@ const SingUpForm = () => {
         alert(data.error.message);
       } else {
         if (isLogin) {
-          ctx.setIsLoggedIn(true);
           ctx.setidToken(data.idToken);
           ctx.setEmail(data.email);
+          // ctx.setUserId(data.localId);
+          // localStorage.setItem('userId',data.localId);
+
           navigat("/home");
-          localStorage.setItem("idToken", data.idToken);
         }
         setIsLogin(true);
       }
@@ -67,7 +69,9 @@ const SingUpForm = () => {
 
   const changeEmail = (event) => {
     setEmail(event.target.value);
+
   };
+  localStorage.setItem("email",email);
 
   const changePassword = (event) => {
     setPassword(event.target.value);
@@ -133,7 +137,6 @@ const SingUpForm = () => {
         <button onClick={switchHandler} className={classes.singupButton}>
           {isLogin ? "Don't Have an Account? Sign Up" : "Login"}
         </button>
-      
       </div>
     </>
   );

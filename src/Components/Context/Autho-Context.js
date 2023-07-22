@@ -4,37 +4,61 @@ export const AppContext = React.createContext({
   idToken: "",
   isLoggedIn: false,
   setidToken: () => {},
-  setIsLoggedIn: () => {},
+  Logout: () => {},
 
-  email:'',
-  setEmail:()=>{},
-  verifyEmai:false,
-  setVerifyEmail:()=>{}
+  email: "",
+  setEmail: () => {},
+  verifyEmai: false,
+  setVerifyEmail: () => {},
 
+  expenseLists: [],
+  setExpenseLists: () => {},
 
+  // userId: "",
+  // setUserId: () => {},
 });
 
 const ContextProvider = (props) => {
-  const useridToken = localStorage.getItem("idToken")
-    ? localStorage.getItem("idToken")
-    : "";
+  const initialToken = localStorage.getItem("idToken");
+ // const userLocalid = localStorage.getItem("userId");
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [idToken, setidToken] = useState(useridToken);
-  
-  const [email,setEmail] = useState('text@gmail.com')
-  const [verifyEmail,setVerifyEmail] = useState(false);
+  const [idToken, setidToken] = useState(initialToken);
 
+  const userIsLoggedIn = !!idToken;
+
+  const [email, setEmail] = useState("");
+  const [verifyEmail, setVerifyEmail] = useState(false);
+   const [expenseLists, setExpenseLists] = useState([]);
+
+ // const [userId, setUserId] = useState(userLocalid);
+
+  const loggInHandler = (idToken) => {
+    setidToken(idToken);
+    localStorage.setItem("idToken", idToken);
+   
+  };
+
+  const loggOutHandler = () => {
+    setidToken(null);
+    localStorage.removeItem("idToken");
+  };
 
   const ctxObj = {
     idToken: idToken,
-    isLoggedIn: isLoggedIn,
-    setidToken: setidToken,
-    setIsLoggedIn: setIsLoggedIn,
-    email:email,
-    setEmail:setEmail,
-    verifyEmail:verifyEmail,
-    setVerifyEmail:setVerifyEmail
+    isLoggedIn: userIsLoggedIn,
+    setidToken: loggInHandler,
+    Logout: loggOutHandler,
+
+    email: email,
+    setEmail: setEmail,
+    verifyEmail: verifyEmail,
+    setVerifyEmail: setVerifyEmail,
+
+    expenseLists: expenseLists,
+    setExpenseLists: setExpenseLists,
+
+    // userId: userId,
+    // setUserId: setUserId,
   };
 
   return (

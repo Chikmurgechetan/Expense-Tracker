@@ -1,36 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import classes from "./ProfilePage.module.css";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../Context/Autho-Context";
 import ExpenxeForm from "../Expenses/ExpenseForm";
-import ExpenseList from "./ExpenseFormList";
+import ExpenseList from "../Expenses/ExpenseFormList";
 
 const ProfilePage = () => {
   const ctx = useContext(AppContext);
   const navigat = useNavigate();
 
   //this is Expesne from show on screen
-  const [expenseList,setExpenseList] = useState([])
+  
+ const submitHandler = (value) => {
+    ctx.setExpenseLists((previesList) => {
+      return [value, ...previesList];
+    });
+  };
 
-
-  const submitHandler = (value) =>{
-      setExpenseList((previesList)=>{
-        return [value, ...previesList]
-      })
-  }
-
-
-
-///this is complete profile button
+  ///this is complete profile button
   const ButtonHandler = () => {
     navigat("/contect");
   };
 
   // this is logout button
   const logoutHandler = () => {
-    ctx.setIsLoggedIn(false);
-    localStorage.removeItem("idToken", "");
-    ctx.setidToken(null);
+    ctx.Logout();
     navigat("/");
     console.log("logign out");
   };
@@ -52,8 +46,8 @@ const ProfilePage = () => {
           </h3>
         </div>
       </div>
-      <ExpenxeForm  showList={submitHandler}/>
-      <ExpenseList lists={expenseList}/>
+      <ExpenxeForm showList={submitHandler} />
+      <ExpenseList />
     </>
   );
 };
