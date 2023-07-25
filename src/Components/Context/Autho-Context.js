@@ -20,7 +20,7 @@ export const AppContext = React.createContext({
 
 const ContextProvider = (props) => {
   const initialToken = localStorage.getItem("idToken");
- // const userLocalid = localStorage.getItem("userId");
+  // const userLocalid = localStorage.getItem("userId");
 
   const [idToken, setidToken] = useState(initialToken);
 
@@ -28,19 +28,16 @@ const ContextProvider = (props) => {
 
   const [email, setEmail] = useState("");
   const [verifyEmail, setVerifyEmail] = useState(false);
-   const [expenseLists, setExpenseLists] = useState([]);
-
- // const [userId, setUserId] = useState(userLocalid);
+  const [expenseLists, setExpenseLists] = useState([]);
 
   const loggInHandler = (idToken) => {
     setidToken(idToken);
     localStorage.setItem("idToken", idToken);
-   
   };
 
   const loggOutHandler = () => {
     setidToken(null);
-    localStorage.removeItem("idToken");
+    localStorage.getItem("idToken");
   };
 
   const ctxObj = {

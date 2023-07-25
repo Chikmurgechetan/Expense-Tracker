@@ -29,7 +29,7 @@ const ExpenseForm = (props) => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  //const [details,setDetails] = useState([]);
+  //const [lists,setLists] = useState([]);
 
   const getUserData = async () => {
     try {
