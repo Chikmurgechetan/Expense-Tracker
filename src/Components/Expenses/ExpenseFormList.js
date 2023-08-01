@@ -7,7 +7,12 @@ import EditIcon from "@mui/icons-material/Edit";
 const ExpenseList = () => {
   const ctx = useContext(AppContext);
   const expenseLists = ctx.expenseLists;
-  const [edit, setEdit] = useState({ id: null, price: "", description: "", category: "" });
+  const [edit, setEdit] = useState({
+    id: null,
+    price: "",
+    description: "",
+    category: "",
+  });
 
   const totalPrice = expenseLists.reduce((init, item) => {
     return (init += parseInt(item.price));
@@ -21,9 +26,12 @@ const ExpenseList = () => {
       return prevList.filter((newItem) => newItem.id !== id);
     });
 
-    fetch(`https://expense-tracker-b56f7-default-rtdb.firebaseio.com/${updatedEmail}/${id}.json`, {
-      method: "DELETE",
-    })
+    fetch(
+      `https://expense-tracker-b56f7-default-rtdb.firebaseio.com/${updatedEmail}/${id}.json`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to delete the expense.");
@@ -36,7 +44,12 @@ const ExpenseList = () => {
 
   const editHandler = (id) => {
     const expenseItem = expenseLists.find((item) => item.id === id);
-    setEdit({ id, price: expenseItem.price, description: expenseItem.description, category: expenseItem.category });
+    setEdit({
+      id,
+      price: expenseItem.price,
+      description: expenseItem.description,
+      category: expenseItem.category,
+    });
   };
 
   const saveHandler = (id) => {
@@ -46,18 +59,33 @@ const ExpenseList = () => {
       category: edit.category,
     };
 
-    fetch(`https://expense-tracker-b56f7-default-rtdb.firebaseio.com/${updatedEmail}/${id}.json`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editedData),
-    })
+    fetch(
+      `https://expense-tracker-b56f7-default-rtdb.firebaseio.com/${updatedEmail}/${id}.json`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editedData),
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to edit the expense.");
         }
+
+        // Update the context variable ctx.expenseLists after the data is saved on the server
+        ctx.setExpenseLists((prevList) => {
+          return prevList.map((item) =>
+            item.id === id ? { ...item, ...editedData } : item
+          );
+        });
+
+        // Clear the edit state
         setEdit({ id: null, price: "", description: "", category: "" });
+
+        // Remove the editData from localStorage after saving the data
+        localStorage.removeItem("editData");
       })
       .catch((error) => {
         console.error(error);
@@ -71,10 +99,16 @@ const ExpenseList = () => {
           {!edit.id || edit.id !== item.id ? (
             <>
               {item.price} - {item.description} - {item.category} -
-              <button className={classes.deletbtn} onClick={() => deleteHandler(item.id)}>
+              <button
+                className={classes.deletbtn}
+                onClick={() => deleteHandler(item.id)}
+              >
                 <DeleteIcon /> Delete
               </button>
-              <button className={classes.deletbtn} onClick={() => editHandler(item.id)}>
+              <button
+                className={classes.deletbtn}
+                onClick={() => editHandler(item.id)}
+              >
                 <EditIcon /> Edit
               </button>
             </>
@@ -90,7 +124,9 @@ const ExpenseList = () => {
                 type="text"
                 placeholder="add description"
                 value={edit.description}
-                onChange={(e) => setEdit({ ...edit, description: e.target.value })}
+                onChange={(e) =>
+                  setEdit({ ...edit, description: e.target.value })
+                }
               />
               <select
                 id="select"
@@ -102,14 +138,17 @@ const ExpenseList = () => {
                 <option value="Petrol">Petrol</option>
                 <option value="Salary">Salary</option>
               </select>
-              <button className={classes.deletbtn} onClick={() => saveHandler(item.id)}>
+              <button
+                className={classes.deletbtn}
+                onClick={() => saveHandler(item.id)}
+              >
                 <EditIcon /> Save
               </button>
             </>
           )}
         </li>
       ))}
-      <h3 className={classes.total}>Total Expense Amount : Rs-{totalPrice}</h3>
+      <h6 className={classes.total}>Total Expense Amount : Rs-{totalPrice}</h6>
     </ul>
   );
 };

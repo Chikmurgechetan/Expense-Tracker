@@ -1,6 +1,5 @@
 .maneList {
   display: inline-block;
-
   justify-content: space-between;
   list-style-type: none;
   margin: 2rem 25rem;
@@ -9,16 +8,13 @@
 }
 
 .list {
-
   border-bottom: 2px solid black;
   margin-top: 10px;
 }
 
 .deletbtn {
   display: inline-block;
-
   justify-content: space-between;
- 
   margin-left: 1rem;
   color: black;
   font-weight: bold;
@@ -35,6 +31,9 @@
   cursor: pointer;
 }
 
-.total{
-  margin-right: 8rem;
+.total {
+  margin: left 2rem;
+  font-size: 1.3rem;
+  text-decoration: underline red;
+
 }
