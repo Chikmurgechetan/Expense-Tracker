@@ -6,20 +6,23 @@ import { AppContext } from "../Context/Autho-Context";
 import EmailIcon from "@mui/icons-material/Email";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import { useNavigate } from "react-router-dom";
+import {  useSelector } from "react-redux";
+//import { authActions } from "../../Store/Reduers/Autho-reducers";
+
 
 const fetchProfile = async (
-  ctx,
+  idToken,
   setShowname,
   setShowImage,
   setEmail,
-  setVerifyEmail
+  setEmailVerified
 ) => {
   try {
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q",
       {
         method: "POST",
-        body: JSON.stringify({ idToken: ctx.idToken }),
+        body: JSON.stringify({ idToken: idToken }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -31,7 +34,7 @@ const fetchProfile = async (
       setShowname(data.users[0].displayName);
       setShowImage(data.users[0].photoUrl);
       setEmail(data.users[0].email);
-      setVerifyEmail(data.users[0].emailVerified);
+      setEmailVerified(data.users[0].emailVerified);
 
       console.log(data.users[0].emailVerified);
       console.log(data);
@@ -44,23 +47,32 @@ const fetchProfile = async (
 };
 
 const ContectDetails = () => {
+  const idToken = useSelector((state) => state.auth.idToken);
+
   const navigat = useNavigate();
   const ctx = useContext(AppContext);
   const [name, setName] = useState("");
   const [profileUrl, setProfileUrl] = useState("");
-
   const [showName, setShowname] = useState("chetanKumar");
   const [showImage, setShowImage] = useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKo76YVrnnPieB27rFfO4k43aaWCgI0o4Dr3WC8TNVvU4wDS-s7c1vcXk6CpO5S9zOtuA&usqp=CAU"
   );
+  //const verifyEmail = useSelector(state => state.auth.isEmailVerified)  
+  //const dispatch = useDispatch()
+  const [email, setEmail] = useState("");
+  const [verifyEmail, setVerifyEmail] = useState(false);
+ 
+
 
   useEffect(() => {
     fetchProfile(
-      ctx,
+      idToken,
       setShowname,
       setShowImage,
-      ctx.setEmail,
-      ctx.setVerifyEmail
+      setEmail,
+      setVerifyEmail
+      //dispatch(authActions.setEmailVerified())
+
     );
   }, [ctx]);
 
@@ -78,7 +90,7 @@ const ContectDetails = () => {
           body: JSON.stringify({
             displayName: name,
             photoUrl: profileUrl,
-            idToken: ctx.idToken,
+            idToken: idToken,
             returnSecureToken: true,
           }),
           headers: {
@@ -98,12 +110,12 @@ const ContectDetails = () => {
     }
   };
 
-  async function verifyEmail() {
+  async function verifyEmailHandler() {
     const firebaseApiUrl =
       "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBkf4P6tcEA2uaVJe-UTssAymxMaTBMf2Q";
 
     const requestData = {
-      idToken: ctx.idToken,
+      idToken: idToken,
       requestType: "VERIFY_EMAIL",
     };
 
@@ -145,18 +157,17 @@ const ContectDetails = () => {
         </h2>
         <p>{showName}</p>
         <img src={showImage} alt="profileimage" width="100px" height="60px" />
-        <p className="profile-email">{ctx.email}</p>
+        <p className="profile-email">{email}</p>
 
-        {ctx.verifyEmail ? (
+        {verifyEmail ? (
           <p>
             Email verified
-            
             <MarkEmailReadIcon />
           </p>
         ) : (
           <button
             className={classes.buttonVerify}
-            onClick={() => verifyEmail(ctx.idToken)}
+            onClick={() => verifyEmailHandler(idToken)}
           >
             Verify Email Id <EmailIcon />
           </button>

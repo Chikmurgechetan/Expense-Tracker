@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import classes from "./ExpenseFormList.module.css";
-import { AppContext } from "../Context/Autho-Context";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { useDispatch, useSelector } from "react-redux";
+import { expenxeAction } from "../Store/Reduers/Expense-reducer";
 
 const ExpenseList = () => {
-  const ctx = useContext(AppContext);
-  const expenseLists = ctx.expenseLists;
   const [edit, setEdit] = useState({
     id: null,
     price: "",
@@ -14,7 +13,10 @@ const ExpenseList = () => {
     category: "",
   });
 
-  const totalPrice = expenseLists.reduce((init, item) => {
+  const dispatch = useDispatch();
+  const expenseList = useSelector((state) => state.expenes.expeneseList);
+
+  const totalPrice = expenseList.reduce((init, item) => {
     return (init += parseInt(item.price));
   }, 0);
 
@@ -22,9 +24,9 @@ const ExpenseList = () => {
   const updatedEmail = email ? email.replace("@", "").replace(".", "") : "";
 
   const deleteHandler = (id) => {
-    ctx.setExpenseLists((prevList) => {
-      return prevList.filter((newItem) => newItem.id !== id);
-    });
+    dispatch(
+      expenxeAction.setExpeneList(expenseList.filter((item) => item.id !== id))
+    );
 
     fetch(
       `https://expense-tracker-b56f7-default-rtdb.firebaseio.com/${updatedEmail}/${id}.json`,
@@ -43,7 +45,7 @@ const ExpenseList = () => {
   };
 
   const editHandler = (id) => {
-    const expenseItem = expenseLists.find((item) => item.id === id);
+    const expenseItem = expenseList.find((item) => item.id === id);
     setEdit({
       id,
       price: expenseItem.price,
@@ -74,12 +76,13 @@ const ExpenseList = () => {
           throw new Error("Failed to edit the expense.");
         }
 
-        // Update the context variable ctx.expenseLists after the data is saved on the server
-        ctx.setExpenseLists((prevList) => {
-          return prevList.map((item) =>
-            item.id === id ? { ...item, ...editedData } : item
-          );
-        });
+        dispatch(
+          expenxeAction.setExpeneList(
+            expenseList.map((item) =>
+              item.id === id ? { ...item, ...editedData } : item
+            )
+          )
+        );
 
         // Clear the edit state
         setEdit({ id: null, price: "", description: "", category: "" });
@@ -94,7 +97,7 @@ const ExpenseList = () => {
 
   return (
     <ul className={classes.maneList}>
-      {expenseLists.map((item) => (
+      {expenseList.map((item) => (
         <li key={item.id} className={classes.list}>
           {!edit.id || edit.id !== item.id ? (
             <>

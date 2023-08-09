@@ -2,6 +2,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import classes from "./ExpenseForm.module.css";
 import { AppContext } from "../Context/Autho-Context";
+import { useDispatch } from "react-redux";
+import { expenxeAction } from "../Store/Reduers/Expense-reducer";
 
 const email = localStorage.getItem("email");
 const updatedEmail = email ? email.replace("@", "").replace(".", "") : "";
@@ -30,6 +32,7 @@ const ExpenseForm = (props) => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   //const [lists,setLists] = useState([]);
+  const dispatch = useDispatch()
 
   const getUserData = async () => {
     try {
@@ -55,7 +58,8 @@ const ExpenseForm = (props) => {
               category: data[key].category,
             });
           }
-          ctx.setExpenseLists(FetchDetails);
+          //ctx.setExpenseLists(FetchDetails);
+          dispatch(expenxeAction.setExpeneList(FetchDetails))
           console.log(
             FetchDetails[0].id +
               "here we are getting desc back" +
@@ -67,7 +71,6 @@ const ExpenseForm = (props) => {
     }
   };
 
-  
   useEffect(() => {
     // Fetch data when the component mounts
     getUserData();
@@ -137,11 +140,7 @@ const ExpenseForm = (props) => {
         </select>
         <button type="submit">ADD Expenses</button>
       </form>
-      {/* <div>
-   {details.map((item, index) => (
-          <li key={index}>
-            Amount: {item.price}, Description: {item.description}, Category: {item.category}</li>))}
-    </div> */}
+
     </>
   );
 };
