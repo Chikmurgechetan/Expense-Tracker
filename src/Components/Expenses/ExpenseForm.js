@@ -1,7 +1,6 @@
 //https://expense-tracker-b56f7-default-rtdb.firebaseio.com
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import classes from "./ExpenseForm.module.css";
-import { AppContext } from "../Context/Autho-Context";
 import { useDispatch } from "react-redux";
 import { expenxeAction } from "../Store/Reduers/Expense-reducer";
 
@@ -27,7 +26,7 @@ const dataToFirebase = async (data) => {
 };
 
 const ExpenseForm = (props) => {
-  const ctx = useContext(AppContext);
+ // const ctx = useContext(AppContext);
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -92,7 +91,7 @@ const ExpenseForm = (props) => {
     }
 
     // Adding data to Firebase
-    dataToFirebase(obj, ctx.idToken, ctx.userId);
+    dataToFirebase(obj);
 
     // Reset form inputs
     setPrice("");

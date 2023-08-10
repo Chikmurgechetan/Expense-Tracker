@@ -1,26 +1,22 @@
-import React from "react";
-import { useState } from "react";
-export const AppContext = React.createContext({
-  email: "",
-  setEmail: () => {},
-  verifyEmail: false,
-  setVerifyEmail: () => {},
-});
+// import React from "react";
 
-const ContextProvider = (props) => {
-  const [email, setEmail] = useState("");
-  const [verifyEmail, setVerifyEmail] = useState(false);
+//  const AppContext = React.createContext({
+ 
+ 
+// });
 
-  const ctxObj = {
-    email: email,
-    setEmail: setEmail,
-    verifyEmail: verifyEmail,
-    setVerifyEmail: setVerifyEmail,
-  };
+// const ContextProvider = (props) => {
+ 
 
-  return (
-    <AppContext.Provider value={ctxObj}>{props.children}</AppContext.Provider>
-  );
-};
 
-export default ContextProvider;
+//   const ctxObj = {
+ 
+    
+//   };
+
+//   return (
+//     <AppContext.Provider value={ctxObj}>{props.children}</AppContext.Provider>
+//   );
+// };
+
+// export default ContextProvider;

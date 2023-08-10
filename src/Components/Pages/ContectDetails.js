@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import classes from "./ContectDetails.module.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LanguageIcon from "@mui/icons-material/Language";
-import { AppContext } from "../Context/Autho-Context";
+
 import EmailIcon from "@mui/icons-material/Email";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +50,7 @@ const ContectDetails = () => {
   const idToken = useSelector((state) => state.auth.idToken);
 
   const navigat = useNavigate();
-  const ctx = useContext(AppContext);
+  //const ctx = useContext(AppContext);
   const [name, setName] = useState("");
   const [profileUrl, setProfileUrl] = useState("");
   const [showName, setShowname] = useState("chetanKumar");
@@ -74,7 +74,7 @@ const ContectDetails = () => {
       //dispatch(authActions.setEmailVerified())
 
     );
-  }, [ctx]);
+  }, []);
 
   const submitHandler = async (event) => {
     event.preventDefault();

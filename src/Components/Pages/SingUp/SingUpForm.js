@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../Store/Reduers/Autho-reducers";
 import classes from "./SingUpFrom.module.css";
-import { AppContext } from "../../Context/Autho-Context";
+
 import { useNavigate } from "react-router-dom";
 
 const SingUpForm = () => {
@@ -10,7 +10,7 @@ const SingUpForm = () => {
   //  const idToken = useSelector(state => state.idToken)
 
   const navigat = useNavigate();
-  const ctx = useContext(AppContext);
+  //const ctx = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conformPassword, setConformPassword] = useState("");
@@ -57,7 +57,8 @@ const SingUpForm = () => {
       } else {
         if (isLogin) {
           dispatch(authActions.setlogin(data.idToken));
-          ctx.setEmail(data.email);
+          dispatch(authActions.setEmail(data.email));
+      //setEmail(data.email);
           // ctx.setUserId(data.localId);
           // localStorage.setItem('userId',data.localId);
 

@@ -7,12 +7,14 @@ import ExpenseList from "../Expenses/ExpenseFormList";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../Store/Reduers/Autho-reducers";
 import { expenxeAction } from "../Store/Reduers/Expense-reducer";
+import { themAction } from "../Store/Reduers/Them-reducers";
 
 const ProfilePage = () => {
   ///const ctx = useContext(AppContext);
   const navigat = useNavigate();
   const dispatch = useDispatch();
   const expenseList = useSelector(state=>state.expenes.expeneseList)
+  const themDark = useSelector(state => state.them.themDark);
 
   //this is Expesne from show on screen
 
@@ -44,7 +46,13 @@ const ProfilePage = () => {
   };
 
 
+ // premiumbutton Darkthem toogle
 
+ const themToggleprimeambutton = () =>{
+   dispatch(themAction.toggleThem())
+   console.log('the news')
+   
+ }
 
 
 
@@ -55,8 +63,8 @@ const ProfilePage = () => {
         Logout
       </button>
       {shouldShowActivatePremium() && (
-        <button className={classes.activatePremium}>
-          Activate Premium
+        <button className={classes.activatePremium} onClick={themToggleprimeambutton}>
+         { themDark ? "switch to Lightthem" : "Activate Premium" }
         </button>
       )}
       <div className={classes.profile}>
