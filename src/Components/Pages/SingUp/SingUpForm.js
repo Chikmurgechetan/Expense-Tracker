@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../Store/Reduers/Autho-reducers";
 import classes from "./SingUpFrom.module.css";
-
+//import { AppContext } from "../../Context/Autho-Context";
 import { useNavigate } from "react-router-dom";
 
 const SingUpForm = () => {
@@ -57,8 +57,8 @@ const SingUpForm = () => {
       } else {
         if (isLogin) {
           dispatch(authActions.setlogin(data.idToken));
-          dispatch(authActions.setEmail(data.email));
-      //setEmail(data.email);
+          // dispatch(authActions.)
+          //  ctx.setEmail(data.email);
           // ctx.setUserId(data.localId);
           // localStorage.setItem('userId',data.localId);
 

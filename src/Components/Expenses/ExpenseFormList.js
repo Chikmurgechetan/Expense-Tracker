@@ -4,6 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { expenxeAction } from "../Store/Reduers/Expense-reducer";
+import { saveAs } from "file-saver";
 
 const ExpenseList = () => {
   const [edit, setEdit] = useState({
@@ -83,17 +84,37 @@ const ExpenseList = () => {
             )
           )
         );
-
-        // Clear the edit state
+         // Clear the edit state
         setEdit({ id: null, price: "", description: "", category: "" });
-
-        // Remove the editData from localStorage after saving the data
+         // Remove the editData from localStorage after saving the data
         localStorage.removeItem("editData");
       })
       .catch((error) => {
         console.error(error);
       });
   };
+
+
+   // Function to convert the expense list to CSV format
+   function convertToCSV(expenseList) {
+    const header = "Price,Description,Category\n";
+    const csvRows = expenseList.map(item =>
+      `${item.price},${item.description},${item.category}`
+    );
+    return header + csvRows.join("\n");
+  }
+
+  // Function to handle the download of CSV file
+  function downloadCSV(expenseList) {
+    const csvData = convertToCSV(expenseList);
+    const blob = new Blob([csvData], { type: "text/csv;charset=utf-8" });
+    saveAs(blob, "expenses.csv");
+  }
+
+
+
+ 
+
 
   return (
     <ul className={classes.maneList}>
@@ -151,7 +172,14 @@ const ExpenseList = () => {
           )}
         </li>
       ))}
-      <h6 className={classes.total}>Total Expense Amount : Rs-{totalPrice}</h6>
+      <h6 className={classes.total}>Total Expense Amount : Rs-{totalPrice} -
+      <button
+        className={classes.donwlode}
+        onClick={() => downloadCSV(expenseList)}
+      >
+        Download File
+      </button>
+      </h6>
     </ul>
   );
 };

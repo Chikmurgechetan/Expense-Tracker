@@ -1,51 +1,70 @@
-
-.Contect{
+/* Shared styles for both themes */
+.Contect {
   margin-left: 15rem;
   margin-top: 5rem;
   border-bottom: 1px solid black;
   padding-bottom: 2rem;
-  background-color: lightcyan;
   margin-right: 6rem;
   padding-left: 2rem;
   padding-top: 1rem;
   border-radius: 15px;
   box-shadow: 2px 1px 2px 3px red;
-  }
-.h2{
-    display: flex;
-    justify-content: space-between;
-    
 }
-.cancle{
-    margin-right: 7rem;
-    cursor: pointer;
-}
-.labels{
-  margin-left: 1rem;
-  font: weight 6px;;
 
+.h2 {
+  display: flex;
+  justify-content: space-between;
 }
-.nameinput{
+
+.cancle {
+  margin-right: 7rem;
+  cursor: pointer;
+}
+
+.labels {
+  margin-left: 1rem;
+  font-weight: bold; /* Fixed the typo */
+}
+
+.nameinput {
   width: 14rem;
   margin-left: 1rem;
   margin-top: 2rem;
 }
 
-.updatebtn{
-    color: wheat;
-    cursor: pointer;
-    display: block;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    padding: 2px 5px;
-    background-color: brown;
-    font-weight: bold;
+.updatebtn {
+  color: wheat;
+  cursor: pointer;
+  display: block;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  padding: 2px 5px;
+  font-weight: bold;
 }
-.updatebtn:hover{
+
+.updatebtn:hover {
   background-color: red;
 }
-  
-.buttonVerify{
+
+.buttonVerify {
   margin-left: 4rem;
   cursor: pointer;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark theme styles */
+.dark .Contect {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+/* Light theme styles */
+.light .Contect {
+  background-color: rgb(235, 235, 235);
+  color: #000000;
 }

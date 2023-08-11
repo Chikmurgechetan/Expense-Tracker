@@ -37,3 +37,11 @@
   text-decoration: underline red;
 
 }
+
+.donwlode{
+   margin-bottom: 1rem;
+   background-color: black;
+   color: white;
+   font-weight: bold;
+   cursor: pointer;
+}

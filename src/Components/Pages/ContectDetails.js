@@ -1,14 +1,12 @@
-import React, {  useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./ContectDetails.module.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LanguageIcon from "@mui/icons-material/Language";
-
 import EmailIcon from "@mui/icons-material/Email";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import { useNavigate } from "react-router-dom";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 //import { authActions } from "../../Store/Reduers/Autho-reducers";
-
 
 const fetchProfile = async (
   idToken,
@@ -57,12 +55,12 @@ const ContectDetails = () => {
   const [showImage, setShowImage] = useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKo76YVrnnPieB27rFfO4k43aaWCgI0o4Dr3WC8TNVvU4wDS-s7c1vcXk6CpO5S9zOtuA&usqp=CAU"
   );
-  //const verifyEmail = useSelector(state => state.auth.isEmailVerified)  
+  //const verifyEmail = useSelector(state => state.auth.isEmailVerified)
   //const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [verifyEmail, setVerifyEmail] = useState(false);
- 
 
+  const themeDark = useSelector((state) => state.them.themeDark);
 
   useEffect(() => {
     fetchProfile(
@@ -72,7 +70,6 @@ const ContectDetails = () => {
       setEmail,
       setVerifyEmail
       //dispatch(authActions.setEmailVerified())
-
     );
   }, []);
 
@@ -147,7 +144,7 @@ const ContectDetails = () => {
   };
 
   return (
-    <>
+    <div className={[classes.card, themeDark ? classes.dark : ""].join(" ")}>
       <div className={classes.Contect}>
         <h2 className={classes.h2}>
           Update Details
@@ -197,7 +194,7 @@ const ContectDetails = () => {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 export default ContectDetails;
