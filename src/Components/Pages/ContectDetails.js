@@ -71,7 +71,7 @@ const ContectDetails = () => {
       setVerifyEmail
       //dispatch(authActions.setEmailVerified())
     );
-  }, []);
+  }, [idToken]);
 
   const submitHandler = async (event) => {
     event.preventDefault();

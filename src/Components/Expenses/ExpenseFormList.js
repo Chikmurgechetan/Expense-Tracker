@@ -84,9 +84,9 @@ const ExpenseList = () => {
             )
           )
         );
-         // Clear the edit state
+        // Clear the edit state
         setEdit({ id: null, price: "", description: "", category: "" });
-         // Remove the editData from localStorage after saving the data
+        // Remove the editData from localStorage after saving the data
         localStorage.removeItem("editData");
       })
       .catch((error) => {
@@ -94,12 +94,11 @@ const ExpenseList = () => {
       });
   };
 
-
-   // Function to convert the expense list to CSV format
-   function convertToCSV(expenseList) {
+  // Function to convert the expense list to CSV format
+  function convertToCSV(expenseList) {
     const header = "Price,Description,Category\n";
-    const csvRows = expenseList.map(item =>
-      `${item.price},${item.description},${item.category}`
+    const csvRows = expenseList.map(
+      (item) => `${item.price},${item.description},${item.category}`
     );
     return header + csvRows.join("\n");
   }
@@ -110,11 +109,6 @@ const ExpenseList = () => {
     const blob = new Blob([csvData], { type: "text/csv;charset=utf-8" });
     saveAs(blob, "expenses.csv");
   }
-
-
-
- 
-
 
   return (
     <ul className={classes.maneList}>
@@ -172,13 +166,14 @@ const ExpenseList = () => {
           )}
         </li>
       ))}
-      <h6 className={classes.total}>Total Expense Amount : Rs-{totalPrice} -
-      <button
-        className={classes.donwlode}
-        onClick={() => downloadCSV(expenseList)}
-      >
-        Download File
-      </button>
+      <h6 className={classes.total}>
+        Total Expense Amount : Rs-{totalPrice} -
+        <button
+          className={classes.donwlode}
+          onClick={() => downloadCSV(expenseList)}
+        >
+          Download Expense
+        </button>
       </h6>
     </ul>
   );

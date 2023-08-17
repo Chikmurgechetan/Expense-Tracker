@@ -24,8 +24,8 @@
   padding-bottom: 1rem;
   margin-bottom: 2rem;
 
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  /* background-color: var(--bg-color);
+  color: var(--text-color); */
 }
 
 .complet {
@@ -70,11 +70,9 @@ h3 {
 }
 
 .card {
-
-  border: 1px solid #ccc;
-  border-radius: 1px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-
+   border: 1px solid #ccc; 
+   border-radius: 1px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
 }
 
 .dark {
@@ -88,15 +86,4 @@ h3 {
   color: white;
   margin-top: 1rem;
   margin-left: 1rem;
-}
-
-/* Theme.module.css */
-.light-theme {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-}
-
-.dark-theme {
-  --bg-color: #333333;
-  --text-color: #ffffff;
 }

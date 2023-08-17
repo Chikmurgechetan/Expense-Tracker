@@ -44,9 +44,15 @@ const ProfilePage = () => {
 
   // premiumbutton Darkthem toogle
 
+  // const themToggleprimeambutton = () => {
+  //   dispatch(themeAction.toggleThem());
+  // };
   const themToggleprimeambutton = () => {
+    const newThemeDark = !themeDark;
     dispatch(themeAction.toggleThem());
+    localStorage.setItem("themeDark", newThemeDark);
   };
+  
 
   return (
     <>
