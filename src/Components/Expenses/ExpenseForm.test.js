@@ -3,7 +3,6 @@ import { render, screen,fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import store from '../Store/store';
 import { BrowserRouter } from 'react-router-dom';
-
 import ExpenseForm from './ExpenseForm';
 
 describe('Greeting component', () =>{
@@ -76,10 +75,4 @@ test('updates input fields on change', () => {
     expect(descriptionInput.value).toBe('Test description');
     expect(categoryInput.value).toBe('Food');
   })
-
-  
-  
-
-
-
 })
